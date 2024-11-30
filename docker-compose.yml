@@ -8,10 +8,6 @@ services:
     container_name: backend_app
     ports:
       - "8000:8000"
-    volumes:
-      - ./uploads:/app/uploads
-      - ./static/results:/app/static/results
-      - ./src:/app/src
     environment:
       - FLASK_ENV=development
 
