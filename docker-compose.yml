@@ -1,0 +1,28 @@
+version: '3.8'
+
+services:
+  flask-app:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile-backend
+    container_name: flask_yolov9_app
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./uploads:/app/uploads
+      - ./static/results:/app/static/results
+      - ./src:/app/src
+    environment:
+      - FLASK_ENV=development
+
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile-frontend
+    container_name: frontend_app
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./frontend:/app
+    environment:
+      - NODE_ENV=development

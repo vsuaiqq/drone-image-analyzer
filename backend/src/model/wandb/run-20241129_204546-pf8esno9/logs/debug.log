@@ -1,0 +1,27 @@
+2024-11-29 20:45:46,335 INFO    MainThread:12866 [wandb_setup.py:_flush():79] Current SDK version is 0.18.7
+2024-11-29 20:45:46,335 INFO    MainThread:12866 [wandb_setup.py:_flush():79] Configure stats pid to 12866
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_setup.py:_flush():79] Loading settings from /root/.config/wandb/settings
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_setup.py:_flush():79] Loading settings from /content/yolov9/wandb/settings
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_setup.py:_flush():79] Loading settings from environment variables: {}
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_setup.py:_flush():79] Inferring run settings from compute environment: {'program_relpath': 'train.py', 'program_abspath': '/content/yolov9/train.py', 'program': '/content/yolov9/train.py'}
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_setup.py:_flush():79] Applying login settings: {'login_timeout': 30}
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_setup.py:_flush():79] Applying login settings: {}
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_init.py:_log_setup():533] Logging user logs to /content/yolov9/wandb/run-20241129_204546-pf8esno9/logs/debug.log
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_init.py:_log_setup():534] Logging internal logs to /content/yolov9/wandb/run-20241129_204546-pf8esno9/logs/debug-internal.log
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_init.py:init():619] calling init triggers
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_init.py:init():626] wandb.init called with sweep_config: {}
+config: {'weights': '/content/weights/gelan-c.pt', 'cfg': 'models/detect/gelan-c.yaml', 'data': '/content/yolov9/k4/data.yaml', 'hyp': {'lr0': 0.01, 'lrf': 0.01, 'momentum': 0.937, 'weight_decay': 0.0005, 'warmup_epochs': 3.0, 'warmup_momentum': 0.8, 'warmup_bias_lr': 0.1, 'box': 7.5, 'cls': 0.5, 'cls_pw': 1.0, 'dfl': 1.5, 'obj_pw': 1.0, 'iou_t': 0.2, 'anchor_t': 5.0, 'fl_gamma': 0.0, 'hsv_h': 0.015, 'hsv_s': 0.7, 'hsv_v': 0.4, 'degrees': 0.0, 'translate': 0.1, 'scale': 0.9, 'shear': 0.0, 'perspective': 0.0, 'flipud': 0.0, 'fliplr': 0.5, 'mosaic': 1.0, 'mixup': 0.15, 'copy_paste': 0.3}, 'epochs': 25, 'batch_size': 16, 'imgsz': 640, 'rect': False, 'resume': False, 'nosave': False, 'noval': False, 'noautoanchor': False, 'noplots': False, 'evolve': None, 'bucket': '', 'cache': None, 'image_weights': False, 'device': '0', 'multi_scale': False, 'single_cls': False, 'optimizer': 'SGD', 'sync_bn': False, 'workers': 8, 'project': 'runs/train', 'name': 'exp', 'exist_ok': False, 'quad': False, 'cos_lr': False, 'flat_cos_lr': False, 'fixed_lr': False, 'label_smoothing': 0.0, 'patience': 100, 'freeze': [0], 'save_period': -1, 'seed': 0, 'local_rank': -1, 'min_items': 0, 'close_mosaic': 15, 'entity': None, 'upload_dataset': False, 'bbox_interval': -1, 'artifact_alias': 'latest', 'save_dir': 'runs/train/exp8'}
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_init.py:init():669] starting backend
+2024-11-29 20:45:46,336 INFO    MainThread:12866 [wandb_init.py:init():673] sending inform_init request
+2024-11-29 20:45:46,338 INFO    MainThread:12866 [backend.py:_multiprocessing_setup():104] multiprocessing start_methods=fork,spawn,forkserver, using: spawn
+2024-11-29 20:45:46,344 INFO    MainThread:12866 [wandb_init.py:init():686] backend started and connected
+2024-11-29 20:45:46,350 INFO    MainThread:12866 [wandb_init.py:init():781] updated telemetry
+2024-11-29 20:45:46,356 INFO    MainThread:12866 [wandb_init.py:init():814] communicating run to backend with 90.0 second timeout
+2024-11-29 20:45:46,783 INFO    MainThread:12866 [wandb_init.py:init():867] starting run threads in backend
+2024-11-29 20:45:47,468 INFO    MainThread:12866 [wandb_run.py:_console_start():2456] atexit reg
+2024-11-29 20:45:47,468 INFO    MainThread:12866 [wandb_run.py:_redirect():2305] redirect: wrap_raw
+2024-11-29 20:45:47,469 INFO    MainThread:12866 [wandb_run.py:_redirect():2370] Wrapping output streams.
+2024-11-29 20:45:47,469 INFO    MainThread:12866 [wandb_run.py:_redirect():2395] Redirects installed.
+2024-11-29 20:45:47,470 INFO    MainThread:12866 [wandb_init.py:init():911] run started, returning control to user process
+2024-11-29 20:45:47,476 INFO    MainThread:12866 [wandb_run.py:_config_callback():1387] config_cb None None {'data_dict': {'train': '/content/yolov9/k4/train/images', 'val': '/content/yolov9/k4/valid/images', 'test': '/content/yolov9/k4/test/images', 'nc': 3, 'names': {0: 'fortification', 1: 'infantry', 2: 'vehicle'}, 'roboflow': {'workspace': 'dpp-z2kka', 'project': 'dpp', 'version': 2, 'license': 'CC BY 4.0', 'url': 'https://universe.roboflow.com/dpp-z2kka/dpp/dataset/2'}, 'path': '/content/yolov9'}}
+2024-11-29 20:46:21,948 WARNING MsgRouterThr:12866 [router.py:message_loop():75] message_loop has been closed

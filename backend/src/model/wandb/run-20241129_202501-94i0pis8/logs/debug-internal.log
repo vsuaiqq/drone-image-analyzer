@@ -1,0 +1,16 @@
+{"time":"2024-11-29T20:25:01.691015993Z","level":"INFO","msg":"using version","core version":"0.18.7"}
+{"time":"2024-11-29T20:25:01.691044488Z","level":"INFO","msg":"created symlink","path":"/content/yolov9/wandb/run-20241129_202501-94i0pis8/logs/debug-core.log"}
+{"time":"2024-11-29T20:25:01.798623163Z","level":"INFO","msg":"created new stream","id":"94i0pis8"}
+{"time":"2024-11-29T20:25:01.79865706Z","level":"INFO","msg":"stream: started","id":"94i0pis8"}
+{"time":"2024-11-29T20:25:01.798674443Z","level":"INFO","msg":"writer: Do: started","stream_id":"94i0pis8"}
+{"time":"2024-11-29T20:25:01.798809521Z","level":"INFO","msg":"handler: started","stream_id":"94i0pis8"}
+{"time":"2024-11-29T20:25:01.798829883Z","level":"INFO","msg":"sender: started","stream_id":"94i0pis8"}
+{"time":"2024-11-29T20:25:02.067740689Z","level":"INFO","msg":"Starting system monitor"}
+{"time":"2024-11-29T20:25:02.517948423Z","level":"INFO","msg":"stream: closing","id":"94i0pis8"}
+{"time":"2024-11-29T20:25:02.517989904Z","level":"INFO","msg":"Stopping system monitor"}
+{"time":"2024-11-29T20:25:02.518881982Z","level":"INFO","msg":"Stopped system monitor"}
+{"time":"2024-11-29T20:25:03.986765402Z","level":"INFO","msg":"fileTransfer: Close: file transfer manager closed"}
+{"time":"2024-11-29T20:25:04.105650337Z","level":"INFO","msg":"handler: closed","stream_id":"94i0pis8"}
+{"time":"2024-11-29T20:25:04.105678974Z","level":"INFO","msg":"writer: Close: closed","stream_id":"94i0pis8"}
+{"time":"2024-11-29T20:25:04.105727071Z","level":"INFO","msg":"sender: closed","stream_id":"94i0pis8"}
+{"time":"2024-11-29T20:25:04.105743479Z","level":"INFO","msg":"stream: closed","id":"94i0pis8"}

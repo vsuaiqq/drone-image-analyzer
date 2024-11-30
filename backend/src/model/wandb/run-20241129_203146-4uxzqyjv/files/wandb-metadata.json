@@ -1,0 +1,65 @@
+{
+  "os": "Linux-6.1.85+-x86_64-with-glibc2.35",
+  "python": "3.10.12",
+  "startedAt": "2024-11-29T20:31:46.371370Z",
+  "args": [
+    "--batch",
+    "16",
+    "--epochs",
+    "25",
+    "--img",
+    "640",
+    "--device",
+    "0",
+    "--min-items",
+    "0",
+    "--close-mosaic",
+    "15",
+    "--data",
+    "/content/yolov9/k1/data.yaml",
+    "--weights",
+    "/content/weights/gelan-c.pt",
+    "--cfg",
+    "models/detect/gelan-c.yaml",
+    "--hyp",
+    "hyp.scratch-high.yaml"
+  ],
+  "program": "/content/yolov9/train.py",
+  "codePath": "train.py",
+  "git": {
+    "remote": "https://github.com/SkalskiP/yolov9.git",
+    "commit": "1e33dbbe463db9eac77194025628fb837bb8afba"
+  },
+  "email": "des7ruct1on777@gmail.com",
+  "root": "/content/yolov9",
+  "host": "f522b4f41e62",
+  "username": "root",
+  "executable": "/usr/bin/python3",
+  "codePathLocal": "train.py",
+  "cpu_count": 1,
+  "cpu_count_logical": 2,
+  "gpu": "Tesla T4",
+  "gpu_count": 1,
+  "disk": {
+    "/": {
+      "total": "120942624768",
+      "used": "35520360448"
+    }
+  },
+  "memory": {
+    "total": "13609431040"
+  },
+  "cpu": {
+    "count": 1,
+    "countLogical": 2
+  },
+  "gpu_nvidia": [
+    {
+      "name": "Tesla T4",
+      "memoryTotal": "16106127360",
+      "cudaCores": 2560,
+      "architecture": "Turing"
+    }
+  ],
+  "cudaVersion": "12.2"
+}

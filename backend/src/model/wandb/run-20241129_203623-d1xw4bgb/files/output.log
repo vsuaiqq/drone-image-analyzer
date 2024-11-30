@@ -1,0 +1,106 @@
+/content/yolov9/train.py:108: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(weights, map_location='cpu')  # load checkpoint to CPU to avoid CUDA memory leak
+Overriding model.yaml nc=80 with nc=3
+
+                 from  n    params  module                                  arguments
+  0                -1  1      1856  models.common.Conv                      [3, 64, 3, 2]
+  1                -1  1     73984  models.common.Conv                      [64, 128, 3, 2]
+  2                -1  1    212864  models.common.RepNCSPELAN4              [128, 256, 128, 64, 1]
+  3                -1  1    164352  models.common.ADown                     [256, 256]
+  4                -1  1    847616  models.common.RepNCSPELAN4              [256, 512, 256, 128, 1]
+  5                -1  1    656384  models.common.ADown                     [512, 512]
+  6                -1  1   2857472  models.common.RepNCSPELAN4              [512, 512, 512, 256, 1]
+  7                -1  1    656384  models.common.ADown                     [512, 512]
+  8                -1  1   2857472  models.common.RepNCSPELAN4              [512, 512, 512, 256, 1]
+  9                -1  1    656896  models.common.SPPELAN                   [512, 512, 256]
+ 10                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']
+ 11           [-1, 6]  1         0  models.common.Concat                    [1]
+ 12                -1  1   3119616  models.common.RepNCSPELAN4              [1024, 512, 512, 256, 1]
+ 13                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']
+ 14           [-1, 4]  1         0  models.common.Concat                    [1]
+ 15                -1  1    912640  models.common.RepNCSPELAN4              [1024, 256, 256, 128, 1]
+ 16                -1  1    164352  models.common.ADown                     [256, 256]
+ 17          [-1, 12]  1         0  models.common.Concat                    [1]
+ 18                -1  1   2988544  models.common.RepNCSPELAN4              [768, 512, 512, 256, 1]
+ 19                -1  1    656384  models.common.ADown                     [512, 512]
+ 20           [-1, 9]  1         0  models.common.Concat                    [1]
+ 21                -1  1   3119616  models.common.RepNCSPELAN4              [1024, 512, 512, 256, 1]
+ 22      [15, 18, 21]  1   5492953  models.yolo.DDetect                     [3, [256, 512, 512]]
+gelan-c summary: 621 layers, 25439385 parameters, 25439369 gradients, 103.2 GFLOPs
+
+Transferred 931/937 items from /content/weights/gelan-c.pt
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1moptimizer:[0m SGD(lr=0.01) with parameter groups 154 weight(decay=0.0), 161 weight(decay=0.0005), 160 bias
+[34m[1malbumentations: [0mBlur(p=0.01, blur_limit=(3, 7)), MedianBlur(p=0.01, blur_limit=(3, 7)), ToGray(p=0.01, num_output_channels=3, method='weighted_average'), CLAHE(p=0.01, clip_limit=(1.0, 4.0), tile_grid_size=(8, 8))
+[34m[1mtrain: [0mScanning /content/yolov9/k2/train/labels... 178 images, 0 backgrounds, 0 corrupt: 100% 178/178 [00:00<00:00, 1659.69it/s]
+[34m[1mtrain: [0mNew cache created: /content/yolov9/k2/train/labels.cache
+[34m[1mval: [0mScanning /content/yolov9/k2/valid/labels... 48 images, 0 backgrounds, 0 corrupt: 100% 48/48 [00:00<00:00, 1251.21it/s]
+[34m[1mval: [0mNew cache created: /content/yolov9/k2/valid/labels.cache
+Plotting labels to runs/train/exp6/labels.jpg...
+/content/yolov9/train.py:244: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=amp)
+Image sizes 640 train, 640 val
+Using 2 dataloader workers
+Logging results to [1mruns/train/exp6[0m
+Starting training for 25 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+  0% 0/12 [00:00<?, ?it/s]/content/yolov9/train.py:302: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(amp):
+       0/24      10.7G      2.686      5.105      2.266         58        640:   0% 0/12 [00:03<?, ?it/s]Exception in thread Thread-13 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+       0/24      10.7G      2.686      5.105      2.266         58        640:   8% 1/12 [00:10<02:00, 10.93s/it]/content/yolov9/train.py:302: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(amp):
+       0/24      10.7G       2.63      5.014      2.245         72        640:  17% 2/12 [00:11<00:50,  5.03s/it]Exception in thread Thread-14 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+       0/24      10.7G      2.587      4.953      2.251         52        640:  25% 3/12 [00:12<00:37,  4.21s/it]
+Traceback (most recent call last):
+  File "/content/yolov9/train.py", line 634, in <module>
+    main(opt)
+  File "/content/yolov9/train.py", line 528, in main
+    train(opt.hyp, opt, device, callbacks)
+  File "/content/yolov9/train.py", line 277, in train
+    for i, (imgs, targets, paths, _) in pbar:  # batch -------------------------------------------------------------
+  File "/usr/local/lib/python3.10/dist-packages/tqdm/std.py", line 1181, in __iter__
+    for obj in iterable:
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 701, in __next__
+    data = self._next_data()
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 1445, in _next_data
+    return self._process_data(data)
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/dataloader.py", line 1491, in _process_data
+    data.reraise()
+  File "/usr/local/lib/python3.10/dist-packages/torch/_utils.py", line 715, in reraise
+    raise exception
+IndexError: Caught IndexError in DataLoader worker process 1.
+Original Traceback (most recent call last):
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/_utils/worker.py", line 351, in _worker_loop
+    data = fetcher.fetch(index)  # type: ignore[possibly-undefined]
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/_utils/fetch.py", line 52, in fetch
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/usr/local/lib/python3.10/dist-packages/torch/utils/data/_utils/fetch.py", line 52, in <listcomp>
+    data = [self.dataset[idx] for idx in possibly_batched_index]
+  File "/content/yolov9/utils/dataloaders.py", line 656, in __getitem__
+    img, labels = self.load_mosaic(index)
+  File "/content/yolov9/utils/dataloaders.py", line 791, in load_mosaic
+    img4, labels4, segments4 = copy_paste(img4, labels4, segments4, p=self.hyp['copy_paste'])
+  File "/content/yolov9/utils/augmentations.py", line 248, in copy_paste
+    l, box, s = labels[j], boxes[j], segments[j]
+IndexError: list index out of range

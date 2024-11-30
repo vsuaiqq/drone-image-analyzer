@@ -1,0 +1,13 @@
+train: /content/yolov9/dataset/train/images
+val: /content/yolov9/dataset/valid/images
+test: /content/yolov9/dataset/test/images
+
+nc: 3
+names: ['fortification', 'infantry', 'vehicle']
+
+roboflow:
+  workspace: dpp-z2kka
+  project: dpp
+  version: 2
+  license: CC BY 4.0
+  url: https://universe.roboflow.com/dpp-z2kka/dpp/dataset/2

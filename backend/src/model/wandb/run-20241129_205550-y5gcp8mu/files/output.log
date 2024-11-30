@@ -1,0 +1,292 @@
+/content/yolov9/train.py:108: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(weights, map_location='cpu')  # load checkpoint to CPU to avoid CUDA memory leak
+Overriding model.yaml nc=80 with nc=3
+
+                 from  n    params  module                                  arguments
+  0                -1  1      1856  models.common.Conv                      [3, 64, 3, 2]
+  1                -1  1     73984  models.common.Conv                      [64, 128, 3, 2]
+  2                -1  1    212864  models.common.RepNCSPELAN4              [128, 256, 128, 64, 1]
+  3                -1  1    164352  models.common.ADown                     [256, 256]
+  4                -1  1    847616  models.common.RepNCSPELAN4              [256, 512, 256, 128, 1]
+  5                -1  1    656384  models.common.ADown                     [512, 512]
+  6                -1  1   2857472  models.common.RepNCSPELAN4              [512, 512, 512, 256, 1]
+  7                -1  1    656384  models.common.ADown                     [512, 512]
+  8                -1  1   2857472  models.common.RepNCSPELAN4              [512, 512, 512, 256, 1]
+  9                -1  1    656896  models.common.SPPELAN                   [512, 512, 256]
+ 10                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']
+ 11           [-1, 6]  1         0  models.common.Concat                    [1]
+ 12                -1  1   3119616  models.common.RepNCSPELAN4              [1024, 512, 512, 256, 1]
+ 13                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']
+ 14           [-1, 4]  1         0  models.common.Concat                    [1]
+ 15                -1  1    912640  models.common.RepNCSPELAN4              [1024, 256, 256, 128, 1]
+ 16                -1  1    164352  models.common.ADown                     [256, 256]
+ 17          [-1, 12]  1         0  models.common.Concat                    [1]
+ 18                -1  1   2988544  models.common.RepNCSPELAN4              [768, 512, 512, 256, 1]
+ 19                -1  1    656384  models.common.ADown                     [512, 512]
+ 20           [-1, 9]  1         0  models.common.Concat                    [1]
+ 21                -1  1   3119616  models.common.RepNCSPELAN4              [1024, 512, 512, 256, 1]
+ 22      [15, 18, 21]  1   5492953  models.yolo.DDetect                     [3, [256, 512, 512]]
+gelan-c summary: 621 layers, 25439385 parameters, 25439369 gradients, 103.2 GFLOPs
+
+Transferred 931/937 items from /content/weights/gelan-c.pt
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1moptimizer:[0m SGD(lr=0.01) with parameter groups 154 weight(decay=0.0), 161 weight(decay=0.0005), 160 bias
+[34m[1malbumentations: [0mBlur(p=0.01, blur_limit=(3, 7)), MedianBlur(p=0.01, blur_limit=(3, 7)), ToGray(p=0.01, num_output_channels=3, method='weighted_average'), CLAHE(p=0.01, clip_limit=(1.0, 4.0), tile_grid_size=(8, 8))
+[34m[1mtrain: [0mScanning /content/yolov9/dataset/train/labels... 258 images, 15 backgrounds, 0 corrupt: 100% 258/258 [00:00<00:00, 735.63it/s]
+[34m[1mtrain: [0mNew cache created: /content/yolov9/dataset/train/labels.cache
+[34m[1mval: [0mScanning /content/yolov9/dataset/valid/labels... 73 images, 1 backgrounds, 0 corrupt: 100% 73/73 [00:00<00:00, 716.74it/s]
+[34m[1mval: [0mNew cache created: /content/yolov9/dataset/valid/labels.cache
+Plotting labels to runs/train/exp9/labels.jpg...
+/content/yolov9/train.py:244: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=amp)
+Image sizes 640 train, 640 val
+Using 2 dataloader workers
+Logging results to [1mruns/train/exp9[0m
+Starting training for 25 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+  0% 0/17 [00:00<?, ?it/s]/content/yolov9/train.py:302: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(amp):
+       0/24      10.5G      2.183      4.521      1.671        111        640:   0% 0/17 [00:03<?, ?it/s]Exception in thread Thread-13 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+       0/24      10.5G      2.183      4.521      1.671        111        640:   6% 1/17 [00:08<02:11,  8.20s/it]/content/yolov9/train.py:302: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(amp):
+       0/24      10.9G      2.232      4.719      1.742        101        640:  12% 2/17 [00:09<00:58,  3.91s/it]Exception in thread Thread-14 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+       0/24      10.9G      2.284      4.772      1.785         81        640:  18% 3/17 [00:09<00:35,  2.53s/it]Exception in thread Thread-15 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+       0/24        11G      2.231      4.584      1.835          5        640: 100% 17/17 [00:21<00:00,  1.27s/it]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:02<00:00,  1.38it/s]
+                   all         73        199     0.0527     0.0343      0.015    0.00515
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       1/24      12.6G      2.229      3.448      1.827         25        640: 100% 17/17 [00:14<00:00,  1.17it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:04<00:00,  1.33s/it]
+                   all         73        199      0.158      0.129     0.0859       0.03
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       2/24      12.7G      2.106      2.821      1.737          7        640: 100% 17/17 [00:14<00:00,  1.18it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.64it/s]
+                   all         73        199      0.244      0.146     0.0887     0.0295
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       3/24      12.7G      2.056      2.655       1.61         40        640: 100% 17/17 [00:14<00:00,  1.16it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:04<00:00,  1.58s/it]
+                   all         73        199      0.335      0.148     0.0917     0.0333
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       4/24      12.7G      2.084      2.588      1.712         25        640: 100% 17/17 [00:13<00:00,  1.24it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.76it/s]
+                   all         73        199      0.379      0.159      0.145     0.0461
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       5/24      12.7G      2.027      2.481      1.648          7        640: 100% 17/17 [00:13<00:00,  1.24it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:04<00:00,  1.35s/it]
+                   all         73        199      0.543      0.106     0.0939     0.0327
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       6/24      12.7G      2.081      2.657      1.631         42        640: 100% 17/17 [00:14<00:00,  1.21it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.80it/s]
+                   all         73        199      0.154       0.16      0.094     0.0359
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       7/24      12.7G      2.102      2.646      1.603         24        640: 100% 17/17 [00:14<00:00,  1.20it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:04<00:00,  1.36s/it]
+                   all         73        199      0.167     0.0543      0.036     0.0135
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       8/24      12.7G      2.086      2.542      1.565         23        640: 100% 17/17 [00:13<00:00,  1.22it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.78it/s]
+                   all         73        199      0.308      0.142      0.103     0.0408
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       9/24      12.7G      2.007      2.223      1.555          7        640: 100% 17/17 [00:13<00:00,  1.23it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:04<00:00,  1.37s/it]
+                   all         73        199       0.22      0.177       0.13     0.0441
+Closing dataloader mosaic
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      10/24      12.7G      1.909      2.704      1.623          0        640: 100% 17/17 [00:14<00:00,  1.21it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.78it/s]
+                   all         73        199      0.184      0.158      0.104     0.0345
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      11/24      12.7G      1.984      2.443      1.685          2        640: 100% 17/17 [00:13<00:00,  1.26it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:04<00:00,  1.36s/it]
+                   all         73        199      0.265       0.17     0.0619     0.0254
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      12/24      12.7G      1.992      2.373      1.689          3        640: 100% 17/17 [00:13<00:00,  1.25it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.78it/s]
+                   all         73        199      0.392      0.136      0.121     0.0417
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      13/24      12.7G      2.032      2.321      1.753          2        640: 100% 17/17 [00:13<00:00,  1.27it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:04<00:00,  1.35s/it]
+                   all         73        199      0.247      0.169      0.117     0.0371
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      14/24      12.7G      2.003       2.25      1.727          8        640: 100% 17/17 [00:13<00:00,  1.26it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.77it/s]
+                   all         73        199      0.266      0.212      0.131     0.0425
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      15/24      12.7G      1.933      2.066      1.674          5        640: 100% 17/17 [00:13<00:00,  1.26it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:04<00:00,  1.34s/it]
+                   all         73        199      0.197      0.196      0.133     0.0415
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      16/24      12.7G      1.959      2.073      1.691          6        640: 100% 17/17 [00:13<00:00,  1.25it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.75it/s]
+                   all         73        199      0.242      0.287      0.136      0.047
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      17/24      12.7G      1.927      2.022      1.625         33        640: 100% 17/17 [00:13<00:00,  1.27it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:03<00:00,  1.32s/it]
+                   all         73        199      0.304       0.22       0.16     0.0543
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      18/24      12.7G      1.845      1.985      1.643          1        640: 100% 17/17 [00:13<00:00,  1.24it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.76it/s]
+                   all         73        199      0.292      0.361      0.186     0.0689
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      19/24      12.7G      1.924      1.981      1.741          3        640: 100% 17/17 [00:13<00:00,  1.22it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:03<00:00,  1.33s/it]
+                   all         73        199      0.365      0.239      0.215     0.0689
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      20/24      12.7G      1.806      1.802      1.572          4        640: 100% 17/17 [00:14<00:00,  1.21it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.74it/s]
+                   all         73        199      0.469      0.261      0.273      0.084
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      21/24      12.7G      1.798      1.665      1.546          5        640: 100% 17/17 [00:13<00:00,  1.23it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:03<00:00,  1.31s/it]
+                   all         73        199      0.398      0.337      0.279     0.0898
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      22/24      12.7G      1.769      1.617       1.57         14        640: 100% 17/17 [00:13<00:00,  1.25it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.80it/s]
+                   all         73        199      0.452      0.315      0.287      0.099
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      23/24      12.7G      1.767      1.534      1.517          2        640: 100% 17/17 [00:13<00:00,  1.24it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:03<00:00,  1.29s/it]
+                   all         73        199      0.396      0.311       0.29       0.11
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+      24/24      12.7G      1.711       1.56      1.534          2        640: 100% 17/17 [00:13<00:00,  1.26it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:01<00:00,  1.78it/s]
+                   all         73        199       0.39      0.335      0.321      0.117
+
+25 epochs completed in 0.132 hours.
+/content/yolov9/utils/general.py:999: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  x = torch.load(f, map_location=torch.device('cpu'))
+Optimizer stripped from runs/train/exp9/weights/last.pt, saved as runs/train/exp9/weights/last_striped.pt, 51.5MB
+Optimizer stripped from runs/train/exp9/weights/best.pt, saved as runs/train/exp9/weights/best_striped.pt, 51.5MB
+
+Validating runs/train/exp9/weights/best.pt...
+/content/yolov9/models/experimental.py:75: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(attempt_download(w), map_location='cpu')  # load
+Fusing layers...
+gelan-c summary: 467 layers, 25413273 parameters, 0 gradients, 102.5 GFLOPs
+                 Class     Images  Instances          P          R      mAP50   mAP50-95:  33% 1/3 [00:00<00:01,  1.32it/s]Exception in thread Thread-40 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+                 Class     Images  Instances          P          R      mAP50   mAP50-95:  67% 2/3 [00:02<00:01,  1.11s/it]Exception in thread Thread-41 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 3/3 [00:02<00:00,  1.12it/s]
+                   all         73        199      0.379      0.335      0.321      0.117
+         fortification         73         61      0.356       0.41      0.376      0.123
+              infantry         73         78      0.355      0.295      0.267     0.0959
+               vehicle         73         60      0.425        0.3      0.321      0.133
+Exception in thread Thread-45 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)Exception in thread Thread-44 (plot_images)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+:
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+Exception in thread Thread-42 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+Exception in thread Thread-43 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+Results saved to [1mruns/train/exp9[0m

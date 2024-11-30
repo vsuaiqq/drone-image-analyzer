@@ -1,0 +1,18 @@
+
+Dataset not found ⚠️, missing paths ['/content/yolov9/valid/images']
+Traceback (most recent call last):
+  File "/content/yolov9/train.py", line 634, in <module>
+    main(opt)
+  File "/content/yolov9/train.py", line 528, in main
+    train(opt.hyp, opt, device, callbacks)
+  File "/content/yolov9/train.py", line 79, in train
+    loggers = Loggers(save_dir, weights, opt, hyp, LOGGER)  # loggers instance
+  File "/content/yolov9/utils/loggers/__init__.py", line 106, in __init__
+    self.wandb = WandbLogger(self.opt, run_id)
+  File "/content/yolov9/utils/loggers/wandb/wandb_utils.py", line 192, in __init__
+    self.data_dict = check_wandb_dataset(opt.data)
+  File "/content/yolov9/utils/loggers/wandb/wandb_utils.py", line 59, in check_wandb_dataset
+    return check_dataset(data_file)
+  File "/content/yolov9/utils/general.py", line 537, in check_dataset
+    raise Exception('Dataset not found ❌')
+Exception: Dataset not found ❌

@@ -1,0 +1,111 @@
+Downloading https://ultralytics.com/assets/Arial.ttf to /root/.config/Ultralytics/Arial.ttf...
+100% 755k/755k [00:00<00:00, 20.8MB/s]
+/content/yolov9/train.py:108: FutureWarning: You are using `torch.load` with `weights_only=False` (the current default value), which uses the default pickle module implicitly. It is possible to construct malicious pickle data which will execute arbitrary code during unpickling (See https://github.com/pytorch/pytorch/blob/main/SECURITY.md#untrusted-models for more details). In a future release, the default value for `weights_only` will be flipped to `True`. This limits the functions that could be executed during unpickling. Arbitrary objects will no longer be allowed to be loaded via this mode unless they are explicitly allowlisted by the user via `torch.serialization.add_safe_globals`. We recommend you start setting `weights_only=True` for any use case where you don't have full control of the loaded file. Please open an issue on GitHub for any issues related to this experimental feature.
+  ckpt = torch.load(weights, map_location='cpu')  # load checkpoint to CPU to avoid CUDA memory leak
+Overriding model.yaml nc=80 with nc=3
+
+                 from  n    params  module                                  arguments
+  0                -1  1      1856  models.common.Conv                      [3, 64, 3, 2]
+  1                -1  1     73984  models.common.Conv                      [64, 128, 3, 2]
+  2                -1  1    212864  models.common.RepNCSPELAN4              [128, 256, 128, 64, 1]
+  3                -1  1    164352  models.common.ADown                     [256, 256]
+  4                -1  1    847616  models.common.RepNCSPELAN4              [256, 512, 256, 128, 1]
+  5                -1  1    656384  models.common.ADown                     [512, 512]
+  6                -1  1   2857472  models.common.RepNCSPELAN4              [512, 512, 512, 256, 1]
+  7                -1  1    656384  models.common.ADown                     [512, 512]
+  8                -1  1   2857472  models.common.RepNCSPELAN4              [512, 512, 512, 256, 1]
+  9                -1  1    656896  models.common.SPPELAN                   [512, 512, 256]
+ 10                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']
+ 11           [-1, 6]  1         0  models.common.Concat                    [1]
+ 12                -1  1   3119616  models.common.RepNCSPELAN4              [1024, 512, 512, 256, 1]
+ 13                -1  1         0  torch.nn.modules.upsampling.Upsample    [None, 2, 'nearest']
+ 14           [-1, 4]  1         0  models.common.Concat                    [1]
+ 15                -1  1    912640  models.common.RepNCSPELAN4              [1024, 256, 256, 128, 1]
+ 16                -1  1    164352  models.common.ADown                     [256, 256]
+ 17          [-1, 12]  1         0  models.common.Concat                    [1]
+ 18                -1  1   2988544  models.common.RepNCSPELAN4              [768, 512, 512, 256, 1]
+ 19                -1  1    656384  models.common.ADown                     [512, 512]
+ 20           [-1, 9]  1         0  models.common.Concat                    [1]
+ 21                -1  1   3119616  models.common.RepNCSPELAN4              [1024, 512, 512, 256, 1]
+ 22      [15, 18, 21]  1   5492953  models.yolo.DDetect                     [3, [256, 512, 512]]
+gelan-c summary: 621 layers, 25439385 parameters, 25439369 gradients, 103.2 GFLOPs
+
+Transferred 931/937 items from /content/weights/gelan-c.pt
+[34m[1mAMP: [0mchecks passed ✅
+[34m[1moptimizer:[0m SGD(lr=0.01) with parameter groups 154 weight(decay=0.0), 161 weight(decay=0.0005), 160 bias
+[34m[1malbumentations: [0mBlur(p=0.01, blur_limit=(3, 7)), MedianBlur(p=0.01, blur_limit=(3, 7)), ToGray(p=0.01, num_output_channels=3, method='weighted_average'), CLAHE(p=0.01, clip_limit=(1.0, 4.0), tile_grid_size=(8, 8))
+[34m[1mtrain: [0mScanning /content/yolov9/k1/train/labels... 175 images, 15 backgrounds, 0 corrupt: 100% 175/175 [00:00<00:00, 1235.74it/s]
+[34m[1mtrain: [0mNew cache created: /content/yolov9/k1/train/labels.cache
+[34m[1mval: [0mScanning /content/yolov9/k1/valid/labels... 50 images, 1 backgrounds, 0 corrupt: 100% 50/50 [00:00<00:00, 863.10it/s]
+[34m[1mval: [0mNew cache created: /content/yolov9/k1/valid/labels.cache
+Plotting labels to runs/train/exp5/labels.jpg...
+/content/yolov9/train.py:244: FutureWarning: `torch.cuda.amp.GradScaler(args...)` is deprecated. Please use `torch.amp.GradScaler('cuda', args...)` instead.
+  scaler = torch.cuda.amp.GradScaler(enabled=amp)
+Image sizes 640 train, 640 val
+Using 2 dataloader workers
+Logging results to [1mruns/train/exp5[0m
+Starting training for 25 epochs...
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+  0% 0/11 [00:00<?, ?it/s]/content/yolov9/train.py:302: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(amp):
+       0/24      10.8G      1.728      4.907      1.408         67        640:   0% 0/11 [00:05<?, ?it/s]Exception in thread Thread-13 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+       0/24      10.8G      1.728      4.907      1.408         67        640:   9% 1/11 [00:10<01:41, 10.19s/it]/content/yolov9/train.py:302: FutureWarning: `torch.cuda.amp.autocast(args...)` is deprecated. Please use `torch.amp.autocast('cuda', args...)` instead.
+  with torch.cuda.amp.autocast(amp):
+       0/24      10.8G      1.788      4.998      1.479         71        640:  18% 2/11 [00:11<00:42,  4.67s/it]Exception in thread Thread-14 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+       0/24      10.8G       1.78      4.961      1.508         43        640:  27% 3/11 [00:11<00:23,  2.89s/it]Exception in thread Thread-15 (plot_images):
+Traceback (most recent call last):
+  File "/usr/lib/python3.10/threading.py", line 1016, in _bootstrap_inner
+    self.run()
+  File "/usr/lib/python3.10/threading.py", line 953, in run
+    self._target(*self._args, **self._kwargs)
+  File "/content/yolov9/utils/plots.py", line 300, in plot_images
+    annotator.box_label(box, label, color=color)
+  File "/content/yolov9/utils/plots.py", line 86, in box_label
+    w, h = self.font.getsize(label)  # text width, height
+AttributeError: 'FreeTypeFont' object has no attribute 'getsize'
+       0/24      10.8G      1.747      5.108      1.555         61        640: 100% 11/11 [00:18<00:00,  1.67s/it]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 2/2 [00:02<00:00,  1.37s/it]
+                   all         50         73    0.00873     0.0238    0.00563    0.00349
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       1/24      12.5G      1.908      4.092      1.652         43        640: 100% 11/11 [00:09<00:00,  1.15it/s]
+                 Class     Images  Instances          P          R      mAP50   mAP50-95: 100% 2/2 [00:03<00:00,  1.80s/it]
+                   all         50         73       0.39     0.0317     0.0246      0.014
+
+      Epoch    GPU_mem   box_loss   cls_loss   dfl_loss  Instances       Size
+       2/24      12.5G      1.602      3.191      1.561         44        640:  18% 2/11 [00:03<00:14,  1.59s/it]
+Traceback (most recent call last):
+  File "/content/yolov9/train.py", line 634, in <module>
+    main(opt)
+  File "/content/yolov9/train.py", line 528, in main
+    train(opt.hyp, opt, device, callbacks)
+  File "/content/yolov9/train.py", line 317, in train
+    scaler.step(optimizer)  # optimizer.step
+  File "/usr/local/lib/python3.10/dist-packages/torch/amp/grad_scaler.py", line 457, in step
+    retval = self._maybe_opt_step(optimizer, optimizer_state, *args, **kwargs)
+  File "/usr/local/lib/python3.10/dist-packages/torch/amp/grad_scaler.py", line 351, in _maybe_opt_step
+    if not sum(v.item() for v in optimizer_state["found_inf_per_device"].values()):
+  File "/usr/local/lib/python3.10/dist-packages/torch/amp/grad_scaler.py", line 351, in <genexpr>
+    if not sum(v.item() for v in optimizer_state["found_inf_per_device"].values()):
+KeyboardInterrupt
