@@ -14,12 +14,14 @@ class Api {
     return response.json().then(err => Promise.reject(err));
   }
 
-  async processImage(file: File) {
+  async processImage(file: File, threshold: number) {
     if (!file) {
       return;
     }
     const formData = new FormData();
     formData.append('file', file);
+    formData.append('threshold', threshold.toString());
+    console.log('Sending file with confidenceThreshold:', threshold.toString());
     return fetch(`${this.baseURL}/upload`, {
       method: 'POST',
       body: formData,

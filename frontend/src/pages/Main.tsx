@@ -221,15 +221,15 @@ const Main = () => {
     if (!uploadedImage) {
       return;
     }
-
+  
     const fileInput = fileInputRef.current;
     if (!fileInput || !fileInput.files) {
       return;
     }
-
+  
     const file = fileInput.files[0];      
     setLoading(true);
-    api.processImage(file)
+    api.processImage(file, confidenceThreshold)
       .then(data => {
         if (data) {
           console.log(data);
@@ -247,12 +247,9 @@ const Main = () => {
       })
       .catch(error => {
         console.warn(error);
+        setLoading(false);
       });
-  }, [
-    uploadedImage,
-    setLoading,
-    setProcessedImage,
-  ]);
+  }, [uploadedImage, confidenceThreshold, setLoading, setProcessedImage]);
 
   const handleDownload = useCallback(() => {
     if (!processedImage) {

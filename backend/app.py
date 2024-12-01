@@ -4,6 +4,7 @@ from flask import Flask, request, send_file, jsonify
 from werkzeug.utils import secure_filename
 import shutil
 from flask_cors import CORS  # Импортируем CORS
+import sys
 
 app = Flask(__name__)
 CORS(app)  # Разрешаем CORS для всех источников
@@ -37,8 +38,11 @@ def upload_image():
     filename = secure_filename(file.filename)
     image_path = os.path.join(UPLOAD_FOLDER, filename)
     file.save(image_path)
-    
-    confidence_threshold = float(request.form.get('confidence', 0.1))
+    raw_confidence = request.form.get('threshold')
+    print(f"Raw confidence: {raw_confidence}")
+    sys.stdout.flush()
+
+    confidence_threshold = float(request.form.get('threshold', 0.1))
     
     result_image_path = run_yolov9_detection(image_path, confidence_threshold)
     
